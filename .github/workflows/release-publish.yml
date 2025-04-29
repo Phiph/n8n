@@ -3,12 +3,12 @@ name: 'Release: Publish'
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
 
 
-  
+
   publish-to-githubrepo-hub:
     name: Publish to Github
     runs-on: ubuntu-latest
