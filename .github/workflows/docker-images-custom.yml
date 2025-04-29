@@ -37,7 +37,11 @@ jobs:
         if: ${{ github.event.inputs.start-url != '' }}
         run: curl -v -X POST -d 'url=${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}' ${{github.event.inputs.start-url}} || echo ""
         shell: bash
-
+      - name: set lower case owner name
+        run: |
+          echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
+        env:
+          OWNER: '${{ github.repository_owner }}'
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
@@ -75,7 +79,7 @@ jobs:
           push: true
           cache-from: type=gha
           cache-to: type=gha,mode=max
-          tags: ghcr.io/${{ toLower(github.repository_owner) }}/n8n:${{ inputs.tag }}
+          tags: ghcr.io/${{ env.OWNER_LC }}/n8n:${{ inputs.tag }}
 
       - name: Call Success URL - optionally
         if: ${{ github.event.inputs.success-url != '' }}
