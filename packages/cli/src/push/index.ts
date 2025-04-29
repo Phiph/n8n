@@ -108,6 +108,8 @@ export class Push extends TypedEmitter<PushEvents> {
 		} = req;
 
 		let connectionError = '';
+		this.logger.debug(`The Host header is "${headers.host}"`);
+		this.logger.debug(`The Origin header is "${headers.origin}"`);
 		if (!pushRef) {
 			connectionError = 'The query parameter "pushRef" is missing!';
 		} else if (
