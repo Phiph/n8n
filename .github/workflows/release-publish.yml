@@ -37,18 +37,19 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
+      - name: Build and push image to GHCR and DockerHub
         uses: docker/build-push-action@b32b51a8eda65d6793cd0494a773d4f6bcef32dc # v6.11.0
         env:
           DOCKER_BUILD_SUMMARY: false
         with:
-          context: ./docker/images/n8n
+          context: .
+          file: ./docker/images/n8n-custom/Dockerfile
           build-args: |
-            N8N_VERSION=20
+            N8N_RELEASE_TYPE=nightly
           platforms: linux/amd64,linux/arm64
           provenance: false
           push: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           tags: |
             ghcr.io/${{ env.OWNER_LC }}/n8n:demo1
-
-   
