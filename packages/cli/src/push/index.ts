@@ -109,17 +109,19 @@ export class Push extends TypedEmitter<PushEvents> {
 
 		let connectionError = '';
 
+
 		// Support for proxies: prefer X-Forwarded headers if present
 		const forwardedHost = headers['x-forwarded-host'] as string | undefined;
 		const forwardedProto = headers['x-forwarded-proto'] as string | undefined;
 		const host = forwardedHost || headers.host;
 		const proto = forwardedProto || (headers.origin?.startsWith('https://') ? 'https' : 'http');
 		const expectedOrigin = `${proto}://${host}`;
-	
+
 		this.logger.debug(`The Host header is "${headers.host}"`);
 		this.logger.debug(`The Origin header is "${headers.origin}"`);
 		this.logger.debug(`The X-Forwarded-Host header is "${forwardedHost}"`);
 		this.logger.debug(`The X-Forwarded-Proto header is "${forwardedProto}"`);
+		this.logger.debug(`The Expected Origin is "${expectedOrigin}"`);
 	
 		if (!pushRef) {
 			connectionError = 'The query parameter "pushRef" is missing!';
