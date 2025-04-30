@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - release/v19.1.0-patch
 
 jobs:
 
