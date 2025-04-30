@@ -120,7 +120,8 @@ export class Push extends TypedEmitter<PushEvents> {
 		this.logger.debug(`The Origin header is "${headers.origin}"`);
 		this.logger.debug(`The X-Forwarded-Host header is "${forwardedHost}"`);
 		this.logger.debug(`The X-Forwarded-Proto header is "${forwardedProto}"`);
-
+		this.logger.debug(`The Expected Origin is "${expectedOrigin}"`);
+		
 		if (!pushRef) {
 			connectionError = 'The query parameter "pushRef" is missing!';
 		} else if (
