@@ -270,7 +270,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
-        uses: useblacksmith/build-push-action@574eb0ee0b59c6a687ace24192f0727dfb65d6d7 # v1.2
+        uses: docker/build-push-action # v1.2
         with:
           context: .
           file: ./docker/images/n8n/Dockerfile
@@ -279,8 +279,6 @@ jobs:
             N8N_VERSION=${{ needs.determine-build-context.outputs.n8n_version }}
             N8N_RELEASE_TYPE=${{ needs.determine-build-context.outputs.release_type }}
           platforms: ${{ matrix.docker_platform }}
-          provenance: true
-          sbom: true
           push: ${{ needs.determine-build-context.outputs.push_enabled == 'true' }}
           tags: ${{ steps.determine-tags.outputs.tags }}
 
