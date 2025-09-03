@@ -94,7 +94,7 @@ export class SourceControlPreferencesService {
 	async getPrivateKeyPath() {
 		const dbPrivateKey = await this.getPrivateKeyFromDatabase();
 
-		const tempFilePath = path.join(this.instanceSettings.n8nFolder, 'ssh_private_key_temp');
+		const tempFilePath = path.join(this.instanceSettings.n8nFolder, 'tmp', 'ssh_private_key_temp');
 
 		// Ensure proper line endings (LF only) for SSH keys, especially on Windows
 		const normalizedKey = dbPrivateKey.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
